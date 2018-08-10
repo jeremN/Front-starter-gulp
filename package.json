@@ -1,0 +1,36 @@
+{
+  "name": "starter-base",
+  "version": "2.0.0",
+  "description": "Front-end starter with Gulp and ES6",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jérémie Néhlil",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^9.1.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "browser-sync": "^2.24.6",
+    "critical": "^1.3.4",
+    "gulp": "^4.0.0",
+    "gulp-babel": "^7.0.1",
+    "gulp-cache": "^1.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-eslint": "^5.0.0",
+    "gulp-iconfont": "^10.0.1",
+    "gulp-iconfont-css": "^2.3.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-svgmin": "^1.2.4",
+    "gulp-uglify": "^3.0.1",
+    "gulp-webp": "^3.0.0",
+    "imagemin-pngquant": "^6.0.0"
+  }
+}
