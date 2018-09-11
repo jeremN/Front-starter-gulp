@@ -1,4 +1,4 @@
-import Gulp 				from 'gulp'
+import gulp 				from 'gulp'
 import Browsersync	from 'browser-sync'
 import Cache 				from 'gulp-cache'
 import Plumber 			from 'gulp-plumber'
@@ -6,13 +6,13 @@ import Uglify				from 'gulp-uglify'
 import Rename				from 'gulp-rename'
 import Concat				from 'gulp-concat'
 import Sourcemaps		from 'gulp-sourcemaps'
-import Iconfont 		from 'gulp-iconfont'
-import Iconfontcss 	from 'gulp-iconfont-css'
-import Sass 				from 'gulp-sass'
-import Cssnano 			from 'gulp-cssnano'
-import Postcss			from 'gulp-postcss'
+import iconfont 		from 'gulp-iconfont'
+import iconfontcss 	from 'gulp-iconfont-css'
+import sass 				from 'gulp-sass'
+import cssnano 			from 'cssnano'
+import postcss			from 'gulp-postcss'
 import Critical 		from 'critical'
-import Autoprefixer from 'autoprefixer'
+import autoprefixer from 'autoprefixer'
 import Imagemin 		from 'gulp-imagemin'
 import Pngquant 		from 'imagemin-pngquant'
 import Svgmin				from 'gulp-svgmin'
@@ -25,7 +25,7 @@ const critical = Critical.stream
 
 const PATHS = {
 	html: './*.html',
-	sass: './assets/sass/**/*.+(scss|sass)',
+	scss: './assets/sass/**/*.+(scss|sass)',
 	js: {
 		all: './assets/js/**/*.js',
 		main: './assets/js/app.js',
@@ -38,7 +38,7 @@ const PATHS = {
 		webp: './assets/img/**/*.+(png|jpg|jpeg|tiff)',
 		svg: './assets/img/**/*.svg'
 	},
-	fonts: './assets/fonts/'
+	fonts: './assets/fonts/',
 	icons: {
 		src: './assets/icons/*svg',
 		target: './assets/sass/base/_icons.scss',
@@ -60,11 +60,11 @@ const PATHS = {
 //Output sass/scss as css + autoprefix + minify + rename with .min
 export function styles() {
 	const plugins = [
-		Autoprefixer({ browsers: ['last 2 versions'] }),
-		Cssnano()
+		autoprefixer({ browsers: ['last 2 versions'] }),
+		cssnano()
 	]
 
-	return gulp.src(PATHS.sass)
+	return gulp.src(PATHS.scss)
 		.pipe(Sourcemaps.init())
 		.pipe(Plumber({
 			errorHandler: (err) => {
@@ -72,8 +72,8 @@ export function styles() {
 				this.emit('end')
 			}
 		}))
-		.pipe(Sass({ outputStyle:'expanded' }))
-		.pipe(Postcss(plugins))
+		.pipe(sass({ outputStyle:'expanded' }))
+		.pipe(postcss(plugins))
 		.pipe(Sourcemaps.write('.'))
 		.pipe(gulp.dest(PATHS.css))
 		.pipe(Rename({ suffix: '.min' }))
@@ -133,7 +133,8 @@ export function reload(done) {
 export function serve(done) {
 	server.init({
 		server: {
-			baseDir: './build/html/'
+			baseDir: './',
+			directory: true
 		}
 	})
 	done()
@@ -142,9 +143,9 @@ export function serve(done) {
 //Transform svg in /icons into an icon font
 export function iconFont() {
 	return gulp.src(PATHS.icons)
-		.pipe(Iconfontcss({
+		.pipe(iconfontcss({
 			fontName: 'icons',
-			path: PATHS.icons.template
+			path: PATHS.icons.template,
 			targetPath: PATHS.icons.target,
 			fontPath: PATHS.fonts
 		}))
@@ -210,23 +211,26 @@ export function criticalCss() {
 		.pipe(gulp.dest(PATHS.dist.dist))
 }
 
-//Gulp watch change
+//Watch change
 export function watch() {
-	gulp.watch(PATHS.sass, gulp.series(styles, iconFont))
-	gulp.watch(PATHS.js, gulp.series(lintJs))
+	return gulp.watch(PATHS.scss, gulp.series(styles, reload))
 }
+
 
 //Js Tasks
 gulp.task('concat', 
-	gulp.series(concatJs))
+	gulp.series(concatJs)
+)
 gulp.task('transpil', 
-	gulp.series(toES5))
-
+	gulp.series(toES5)
+)
 
 //Build & dev Tasks
 gulp.task('build', 
-	gulp.series(clean, optimizeImg, optimizeSvg, convertImgToWebp, styles, copyHtml, copyFont, copyCss, minifyJs, criticalCss))
+	gulp.series(clean, optimizeImg, optimizeSvg, convertImgToWebp, styles, copyHtml, copyFont, copyCss, minifyJs, criticalCss)
+)
 
 gulp.task('dev', 
-	gulp.series(iconFont, styles, gulp.parallel(watch))
+	gulp.series(serve, styles, gulp.parallel(watch))
+)
 
