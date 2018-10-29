@@ -1,0 +1,72 @@
+#ourSolutions {
+  @include mq(medium) {
+    > .container {
+      flex-direction: column;
+    }
+  }
+  
+  @include mq(large, max) {
+    .content-illustration {
+      display: none;
+    }
+  }
+  
+  @include mq(large) {
+    .content {
+
+      &-cards {
+        display: flex;
+
+        &-wrapper {
+          max-width: 66%;
+        }
+      }
+
+      &-illustration {
+        width: 34%;
+      }
+    }
+  }
+}
+
+#ourRef {
+  .swiper {
+
+    &-container {
+      padding-bottom: 4em;
+    }
+
+    &-wrapper { 
+      height: 100%; 
+      @include mq(medium, max) {
+        height: 140px;
+      }
+
+    }
+
+    &-slide {
+      height: 140px;
+      padding: 1em;
+      @extend %flex;
+      align-items: center;
+
+      > * {
+        width: 100%;
+        height: auto;
+        text-align: center;
+        margin:auto;
+        display: block;
+      }
+    }
+
+    &-pagination {
+      bottom: 0;
+
+      &-bullet {
+        &.active {
+          background-color: $blue;
+        }
+      }
+    }
+  }
+}

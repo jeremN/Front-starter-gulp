@@ -1,0 +1,192 @@
+.hero {
+	@extend %flex;
+	min-height: 100vh;
+	max-width: 100%;
+	overflow: hidden;
+	position: relative;
+
+	> .container { 
+		flex-direction: column; 
+		padding-top: 79px;
+		height: auto;
+		margin: 0 auto;
+	}
+
+	&-title {
+		color: $blue-dark;
+		font-size: $fontSize-40;
+		@extend %Raleway;
+		line-height: 1.5;
+	}
+
+	&-content {
+		@extend %flex;
+		text-align: center;
+		justify-content: center;
+		align-items: center;
+		flex-flow: column nowrap;
+		z-index: 1;
+		margin: auto;
+
+		@include mq(medium) {
+			.btn {
+				margin: 1em 0;
+				align-self: flex-start;
+			}
+		}
+	}
+
+	#heroPill { 
+		path { fill: #DFECFC; }
+	}
+	
+	&-bottom {
+		font-size: $fontSize-14;
+		z-index: 1;
+		@extend %flex;
+		margin-bottom: 2em;
+
+		.btn { justify-content: flex-start; }
+
+		.socials {
+
+			li:first-child {
+				color: $blue--single;
+			}
+
+			&-link { color: $blue; }
+		}
+
+		@include mq(medium, max) {
+			flex-direction: column-reverse;
+		}
+	}
+
+	&-socials {
+		@extend %flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&-illustration {
+		@extend %flex;
+		height: 100%;
+		position: absolute;
+		top: -10px;
+		left: 35%;
+		z-index: 0;
+
+		> svg {
+			width: auto !important;
+			height: 85% !important;
+			transform: translateX(150px);
+		}
+
+		@include mq(medium, max) {
+			top: -65px;
+			img {
+				display: none;
+			}
+		}
+
+		> img {
+			height: auto;
+		}
+
+		@include mq(large) {
+			left: initial;
+			bottom: initial;
+			right: 0;
+		}
+
+		@media screen and (min-height: 1080px) {
+			top: -10px;
+		}
+	}
+
+	&-alt {
+
+		.hero {
+			&-title {
+				text-transform: uppercase;
+			}
+
+			&-content {
+				align-items: flex-start;
+
+				p {
+					text-align: left;
+				}
+			}
+		}
+		.btn-blue {
+			margin-top: 2em;
+		}
+	}
+
+	.mobile-hero {
+		@extend %flex;
+
+		@include mq(medium) {
+			display: none;
+		}
+	}
+
+	.desktop-hero {
+		display: none;
+
+		@include mq(medium) {
+			display: flex;
+		}
+	}
+
+	@include mq(medium) {
+		&-content {
+			margin: auto 0;
+			max-width: 50%;
+			text-align: left;
+		}
+		&-bottom {
+			margin-top: 0;
+			margin-bottom: 2em;
+			justify-content: space-between;
+
+			.socials {
+				li {
+					margin-left: 1em;
+				}
+			}
+		}
+
+		&-text {
+			padding-right: 25%;
+		}
+	}
+
+	address {
+		color: $blue--valeurs;
+		font-size: $fontSize-24;
+		line-height: 2;
+		font-style: normal;
+		font-family: $defaultFont;
+
+		span { color: $blue--anchor; }
+
+		a {
+			color: $blue--valeurs;
+			font-family: $defaultFont;
+
+			&:hover,
+			&:active {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.content-heading {
+		h2 {
+			color: $blue--anchor;
+			font-size: $fontSize-14; 
+		}
+	}
+}

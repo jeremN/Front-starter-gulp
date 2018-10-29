@@ -1,0 +1,130 @@
+.btn {
+	background: none;
+	//border: none;
+	//max-width: 209px;
+	@extend %flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: $fontWeight-700;
+	cursor: pointer;
+
+	> svg {
+		margin-left: 0.25em;
+	}
+
+	&:hover,
+	&:active {
+		text-decoration: underline;
+	}
+
+	&-blue {
+		@extend %btnDefault;
+		background-color: $blue;
+
+		&:hover,
+		&:active {
+			color: $blue;
+			border-color: $blue;
+
+			path { fill: $blue; }
+		}
+	}
+
+	&-anchor {
+		color: $blue--anchor;
+
+		path { fill: $blue--anchor; }
+	}
+
+	&-transparent {
+		font-family: $defaultFont;
+		color: $blue;
+		border: 1px solid $grey-border;
+		border-radius: 3em;
+		padding: 0.75em 2em;
+
+		path { fill: $blue; }
+		svg { margin-top: 0.25em; }
+		
+		&:hover,
+		&:active {
+			border-color: $blue;
+		}
+
+	}
+
+	&-back {
+		border: none;
+		color: $blue;
+		line-height: 2;
+	}
+
+	&-lightBlue {
+		@extend %btnDefault;
+		border-color: $blue--form;
+		background-color: $blue--form;
+		font-size: $fontSize-20;
+		margin-top: 2em;
+		margin-bottom: 2em;
+		padding: 1em;
+
+		&:hover,
+		&:active {
+			text-decoration: none;
+			background-color: $white;
+			color: $blue--form;
+
+			path {
+				fill: $blue--form;
+			}
+		}
+
+		@include mq(large) {
+			width: 75%;
+		}
+
+		@include mq(xtra-large) {
+			width: 50%;
+		}
+	}
+
+	&-green {
+		@extend %btnDefault;
+		background-color: $green;
+		border-color: $green;
+
+		&:hover,
+		&:active { 
+			color: $green;
+			border-color: $green;
+
+			path { fill: $green; }
+		}
+	}
+	&-yellow {
+		@extend %btnDefault;
+		background-color: $yellow;
+		border-color: $yellow;
+
+		&:hover,
+		&:active { 
+			color: $yellow;
+			border-color: $yellow;
+
+			path { fill: $yellow; }
+		}
+	}
+	&-purple {
+		@extend %btnDefault;
+		background-color: $purple;
+		border-color: $purple;
+
+		&:hover,
+		&:active { 
+			color: $purple;
+			border-color: $purple;
+
+			path { fill: $purple; }
+		}
+	}
+}

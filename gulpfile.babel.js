@@ -16,15 +16,17 @@ import autoprefixer from 'autoprefixer'
 import Imagemin 		from 'gulp-imagemin'
 import Pngquant 		from 'imagemin-pngquant'
 import Svgmin				from 'gulp-svgmin'
-import Webp					from 'gulp-webp'
+import webp					from 'gulp-webp'
 import ESlint				from 'gulp-eslint'
-import Babel				from 'gulp-babel'
+import babel				from 'gulp-babel'
+import del 					from 'del'
 
 const server = Browsersync.create()
 const critical = Critical.stream
 
 const PATHS = {
 	html: './*.html',
+	allHtml: '*/**/*.html',
 	scss: './assets/sass/**/*.+(scss|sass)',
 	js: {
 		all: './assets/js/**/*.js',
@@ -53,7 +55,8 @@ const PATHS = {
 		img: './dist/assets/img/',
 		webp: './dist/assets/webp/',
 		font: './dist/assets/fonts/',
-		html: './dist/*.html'
+		html: './dist/*.html',
+		critical: './dist/critical/'
 	}
 }
 
@@ -107,7 +110,7 @@ export function convertImgToWebp() {
 
 //Export html to /dist
 export function copyHtml() {
-	return gulp.src(PATHS.html)
+	return gulp.src([PATHS.html, PATHS.allHtml])
 		.pipe(gulp.dest(PATHS.dist.dist))
 }
 
@@ -160,7 +163,7 @@ export function iconFont() {
 
 //Minify javascript
 export function minifyJs() {
-	return gulp.src(PATHS.js.main)
+	return gulp.src(PATHS.js.transpile)
 		.pipe(Rename({suffix: '.min'}))
 		.pipe(Uglify())
 		.pipe(gulp.dest(PATHS.dist.js))
@@ -177,10 +180,10 @@ export function concatJs() {
 
 //Transpile es6 -> es5
 export function toES5() {
-	return gulp.src(PATHS.js.all)
+	return gulp.src(PATHS.js.main)
 		.pipe(Sourcemaps.init())
 		.pipe(babel({
-			presets: ['@babel/env']
+			presets: ['es2015']
 		}))
 		.pipe(Sourcemaps.write())
 		.pipe(gulp.dest(PATHS.js.transpile))
@@ -196,7 +199,9 @@ export function lintJs() {
 
 //Delete /dist
 export function clean() {
-	del(['dist'])
+	del(['dist']).then( () => {
+		console.log('Deleted files and folders')
+	})
 }
 
 //Output critical css
@@ -208,7 +213,7 @@ export function criticalCss() {
 			css: [PATHS.dist.css]
 		}))
 		.on('error', (err) => { log.error(err.message) })
-		.pipe(gulp.dest(PATHS.dist.dist))
+		.pipe(gulp.dest(PATHS.dist.critical))
 }
 
 //Watch change
@@ -227,7 +232,7 @@ gulp.task('transpil',
 
 //Build & dev Tasks
 gulp.task('build', 
-	gulp.series(clean, optimizeImg, optimizeSvg, convertImgToWebp, styles, copyHtml, copyFont, copyCss, minifyJs, criticalCss)
+	gulp.series(optimizeImg, optimizeSvg, styles, copyHtml, copyFont, copyCss, toES5, minifyJs)
 )
 
 gulp.task('dev', 

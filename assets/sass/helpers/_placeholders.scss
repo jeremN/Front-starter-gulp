@@ -1,0 +1,33 @@
+%flex {
+	display: flex;
+}
+
+%Raleway {
+	font-family: $titleFont;
+}
+
+%btnDefault {
+	color: $white;
+	padding: 1em 2.5em;
+	margin: 1em auto;
+	border: 1px solid $blue;
+	border-radius: 4em;
+	transition: all ease-in 0.15s;
+
+	path { fill: $white; }
+
+	&:hover,
+	&:active {
+		color: $blue;
+		background-color: transparent;
+		border-width: 1px;
+		border-style: solid;
+		text-decoration: none;
+	}
+}
+
+%barDefault {
+	width: 65px;
+	height: 3px;
+	margin: 0 0.5em;
+}

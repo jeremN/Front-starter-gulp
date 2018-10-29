@@ -1,33 +1,16 @@
 @charset 'UTF-8';
 
-/*Variable, mixins, functions, placeholder*/
 @import 'helpers/variables';
 @import 'helpers/mixins';
 @import 'helpers/placeholders';
+@import 'helpers/functions';
 
-/*Base*/
-@import 'base/fonts'; 			//Font
+@import 'base/reset'; 
 
-/*Layout*/
-@import 'layout/header'; 		//Header
-@import 'layout/form';			//Form
-@import 'layout/footer'; 		//Footer
+@import 'layout/header';	
 
-/*Pages*/
-@import 'pages/index'; 			//Index page elements
+@import 'components/button';
 
-/*Components*/
-@import 'components/nav'; 		//Nav components
-@import 'components/button'; 	//Buttons components
+@import 'pages/index';
 
-/*Animate*//*
-@import 'animation/animate';	//Animate.css
-@import 'animation/animation';	//Own animation
-*/
-
-/*Media Queries*/
-@import 'mediaqueries/media640px';	
-@import 'mediaqueries/media768px';
-@import 'mediaqueries/media992px';	
-@import 'mediaqueries/media1200px';	
-@import 'mediaqueries/media1920px';	
+@import 'animation/customAnim';
